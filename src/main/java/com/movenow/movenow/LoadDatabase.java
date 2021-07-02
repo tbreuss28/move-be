@@ -6,8 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.movenow.movenow.domain.Move;
-import com.movenow.movenow.domain.MoveRepository;
+import com.movenow.movenow.domain.User;
+import com.movenow.movenow.domain.UserRepository;
 
 @Configuration
 public class LoadDatabase {
@@ -15,11 +15,12 @@ public class LoadDatabase {
 
   
   @Bean
-  CommandLineRunner initDatabase(MoveRepository moveRepository) {
+  CommandLineRunner initDatabase(UserRepository userRepository) {
 
     return args -> {
-      log.info("Preloading " + moveRepository.save(new Move()));
-      log.info("Preloading " + moveRepository.save(new Move()));
+    	log.info("Preloading " + userRepository.save(new User(1L, "Dominik", "M", "clockRight" )));
+    	log.info("Preloading " + userRepository.save(new User(2L, "Matthias", "W", "kirbby")));
+    	
     };
   }
 }
