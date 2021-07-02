@@ -1,5 +1,8 @@
 package com.movenow.movenow.application;
 
+import com.movenow.movenow.domain.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +19,12 @@ public class UserController {
 	
 	@GetMapping("/users")
 	@ResponseBody
-	  public String sayHello() {
+	  public ResponseEntity<User> sayHello() {
+		var user = new User();
 		
+		user.setUserName("kirbby");
 		
-		
-		return "Hellooooo User";
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	  }
 
 }
