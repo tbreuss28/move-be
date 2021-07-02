@@ -30,24 +30,24 @@ public class MoveController {
 	   }
 
 	    @GetMapping
-	    public List<Move> getClients() {
-	        return moveRepository.findAll();
+	    public List<Move> getMoves() {	        
+	   		return moveRepository.findAll();
 	    }
 
 	    @GetMapping("/{id}")
-	    public Move getClient(@PathVariable Long id) {
+	    public Move getMove(@PathVariable Long id) {
 	        return moveRepository.findById(id).orElseThrow(RuntimeException::new);
 	    }
 
 	    @PostMapping
-	    public ResponseEntity createClient(@RequestBody Move move) throws URISyntaxException {
-	    	Move savedMove = moveRepository.save(move);
-	        return ResponseEntity.created(new URI("/clients/" + savedMove.getId())).body(savedMove);
+	    public ResponseEntity createMove(@RequestBody Move move) throws URISyntaxException {
+	    	var savedMove = moveRepository.save(move);
+	        return ResponseEntity.created(new URI("/moves/" + savedMove.getId())).body(savedMove);
 	    }
 
 	    @PutMapping("/{id}")
-	    public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Move move) {
-	        Move currentMove = moveRepository.findById(id).orElseThrow(RuntimeException::new);
+	    public ResponseEntity updateMove(@PathVariable Long id, @RequestBody Move move) {
+	        var currentMove = moveRepository.findById(id).orElseThrow(RuntimeException::new);
 	        currentMove.setName(move.getName());
 	        currentMove = moveRepository.save(move);
 
@@ -55,7 +55,7 @@ public class MoveController {
 	    }
 
 	    @DeleteMapping("/{id}")
-	    public ResponseEntity deleteClient(@PathVariable Long id) {
+	    public ResponseEntity deleteMove(@PathVariable Long id) {
 	    	moveRepository.deleteById(id);
 	        return ResponseEntity.ok().build();
 	    }
