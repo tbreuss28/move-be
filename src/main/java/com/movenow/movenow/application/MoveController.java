@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import com.movenow.movenow.domain.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,7 @@ import com.movenow.movenow.domain.MoveRepository;
 
 @RestController
 @RequestMapping("/api/moves")
-public class MoveController {
-	
+public class MoveController {	
 	
 	   private final MoveRepository moveRepository;
 
@@ -65,4 +65,15 @@ public class MoveController {
 	        return ResponseEntity.ok().build();
 	    }
 
+		@PostMapping("/{id}/users")
+		public ResponseEntity addUser(@PathVariable Long id, @RequestBody User user) throws URISyntaxException {
+			var currentMove = moveRepository.findById(id).orElseThrow(RuntimeException::new);
+			var currentMoveUsers = currentMove.getUsers();
+			
+			currentMoveUsers.add(user);			
+			currentMove.setUsers(currentMoveUsers);
+			moveRepository.save(currentMove);
+			
+			return ResponseEntity.created(new URI("/moves/" + currentMove.getId())).body(currentMove);
+		}
 }

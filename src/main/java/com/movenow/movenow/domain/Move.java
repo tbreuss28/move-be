@@ -1,10 +1,12 @@
 package com.movenow.movenow.domain;
 
+import com.fasterxml.jackson.databind.util.ClassUtil;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.DateTimeException;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -17,17 +19,30 @@ public class Move {
 
 	private String name;
 
-	private String Description;
+	private String description;
 	
-	private Date StartTime;
+	private Date startTime;
 	
-	private Date EndTime;
+	private Date endTime;
 	
-	private Double Latitude;
+	private Double latitude;
 	
-	private Double Longitude;
+	private Double longitude;
 	
-	
+	private ArrayList<User> users = new ArrayList<>();
+
+	public Move() {}
+
+	public Move(String name, String description, Date startTime, Date endTime, double latitude, double longitude) {
+		this.name = name;
+		this.description = description;
+//		this.startTime = startTime;
+//		this.endTime = endTime;
+//		this.latitude = latitude;
+//		this.longitude = longitude;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -46,42 +61,50 @@ public class Move {
 
 
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 
 	public Date getStartTime() {
-		return StartTime;
+		return startTime;
 	}
 
 	public void setStartTime(Date startTime) {
-		StartTime = startTime;
+		this.startTime = startTime;
 	}
 
 	public Date getEndTime() {
-		return EndTime;
+		return endTime;
 	}
 
 	public void setEndTime(Date endTime) {
-		EndTime = endTime;
+		this.endTime = endTime;
 	}
 
 	public Double getLatitude() {
-		return Latitude;
+		return latitude;
 	}
 
 	public void setLatitude(Double latitude) {
-		Latitude = latitude;
+		this.latitude = latitude;
 	}
 
 	public Double getLongitude() {
-		return Longitude;
+		return longitude;
 	}
 
 	public void setLongitude(Double longitude) {
-		Longitude = longitude;
+		this.longitude = longitude;
+	}
+
+	public ArrayList<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(ArrayList<User> users) {
+		this.users = users;
 	}
 }
