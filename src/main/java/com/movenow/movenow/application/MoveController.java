@@ -1,6 +1,4 @@
-package com.movenow.application;
-
-import java.io.IOException;
+package com.movenow.movenow.application;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +13,11 @@ public class MoveController {
 	
 	@GetMapping("api/moves")
 	@ResponseBody
-	  public ResponseEntity<String> sayHello() {
+	  public String sayHello() {
 		
 		
 		
-		return new ResponseEntity<>("Hello World", HttpStatus.OK);
+		return "Hellooooo World";
 	  }
 
 }

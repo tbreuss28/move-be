@@ -1,4 +1,4 @@
-package com.movenow.MoveNow;
+package com.movenow.movenow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
