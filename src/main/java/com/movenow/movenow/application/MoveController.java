@@ -49,6 +49,11 @@ public class MoveController {
 	    public ResponseEntity updateMove(@PathVariable Long id, @RequestBody Move move) {
 	        var currentMove = moveRepository.findById(id).orElseThrow(RuntimeException::new);
 	        currentMove.setName(move.getName());
+			currentMove.setDescription(move.getDescription());
+			currentMove.setStartTime(move.getStartTime());
+			currentMove.setEndTime(move.getEndTime());
+			currentMove.setLatitude(move.getLatitude());
+			currentMove.setLongitude(move.getLongitude());
 	        currentMove = moveRepository.save(move);
 
 	        return ResponseEntity.ok(currentMove);
