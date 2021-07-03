@@ -1,7 +1,7 @@
 # Swagger GUI
 
-- GUI: http://localhost:8080/swagger-ui.html
-- File: http://localhost:8080/v3/api-docs/
+- GUI: http://localhost:8000/swagger-ui.html
+- File: http://localhost:8000/v3/api-docs/
  
  
  
@@ -9,11 +9,11 @@
  # Build Docker Image
  
 ```
-docker build --build-arg JAR_FILE=build/libs/\*.jar -t <repo>/movenow-backend .
+docker build --build-arg JAR_FILE=build/libs/\*.jar -t moveregistry.azurecr.io/move-be .
 ```
  
 With Gradle:
  
 ```
-./gradlew bootBuildImage --imageName=<repo>/movenow-backend
+./gradlew bootBuildImage --imageName=moveregistry.azurecr.io/move-be
 ```
