@@ -22,7 +22,6 @@ public class User {
     
     private String userName;
     
-    private ArrayList<Category> categories;
 
     public User() {}
     
@@ -62,14 +61,6 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public ArrayList<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
     }
     
     @Override

@@ -121,13 +121,11 @@ public class MoveController {
 	    	
 	    	if(move.getCategoryId() != null) {
 	    		Category category = categoryService.getCategory(move.getCategoryId());
-	    		System.out.println("############## " + category.getName());
 	    		moveDTO.setCategoryName(category.getName());
 	    	}
 	    	
 	    	if(move.getSkillId() != null) {
 	    		Skill skill = skillService.getSkill(move.getSkillId());
-	    		System.out.println("############## " + skill.getName());
 	    		moveDTO.setSkillName(skill.getName());		
 	    	}
 	    	
