@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.movenow.movenow.domain.move.Move;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -87,7 +90,7 @@ public class User {
 
 	  @Override
 	  public String toString() {
-	    return "Move{" + "id=" + this.id + ", name='" + this.userName + '\'' + '}';
+	    return "User{" + "id=" + this.id + ", name='" + this.userName + '\'' + '}';
 	  }
 	
 }
