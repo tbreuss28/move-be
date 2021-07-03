@@ -38,24 +38,25 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity createUser(@RequestBody User user) throws URISyntaxException {
+    public ResponseEntity<User> createUser(@RequestBody User user) throws URISyntaxException {
         var savedMove = userRepository.save(user);
         return ResponseEntity.created(new URI("/users/" + savedMove.getId())).body(savedMove);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateUser(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         var currentMove = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentMove.setFirstName(user.getFirstName());
         currentMove.setLastName(user.getLastName());
         currentMove.setUserName(user.getUserName());
+        currentMove.setAvatarMediaId(user.getAvatarMediaId());
         currentMove = userRepository.save(user);
 
         return ResponseEntity.ok(currentMove);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
