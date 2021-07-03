@@ -23,21 +23,35 @@ public class LoadDatabase {
   @Bean
   CommandLineRunner initDatabase(UserRepository userRepository, MoveRepository moveRepository) {
 	  
-	  
-	  
-	  
     return args -> {
     	log.info("Preloading user clockright" + userRepository.save(new User("Dominik", "M", "clockRight" )));
     	log.info("Preloading user kirbby" + userRepository.save(new User("Matthias", "W", "kirbby")));
-        log.info("Preloading move 1" + moveRepository.save(new Move("Lauftreff Leiblachtal", "Wöchentlicher Lauftreff für alle aus dem Leiblachtal.", 
+        log.info("Preloading move 1" + moveRepository.save(new Move(
+        		"Lauftreff Leiblachtal", 
+        		"Wöchentlicher Lauftreff für alle aus dem Leiblachtal.", 
         		Date.from(Instant.parse("2021-07-03T14:00:00Z")), 
-        		Date.from(Instant.parse("2021-07-03T15:00:00Z")), 47.500897D, 9.745009D)));
-        log.info("Preloading move 2" + moveRepository.save(new Move("HobbyKick Bregenz", "Tschutta in Neu Amerika", 
+        		Date.from(Instant.parse("2021-07-03T15:00:00Z")), 
+        		47.500897D, 
+        		9.745009D,
+        		1l,
+        		1l)));
+        log.info("Preloading move 2" + moveRepository.save(new Move(
+        		"HobbyKick Bregenz", 
+        		"Tschutta in Neu Amerika", 
         		Date.from(Instant.parse("2021-07-03T16:00:00Z")), 
-        		Date.from(Instant.parse("2021-07-03T18:00:00Z")), 47.503406D, 9.711289D)));
-        log.info("Preloading move 3" + moveRepository.save(new Move("Tennis am Mittag", "Bewegung in der Mittagspause", 
+        		Date.from(Instant.parse("2021-07-03T18:00:00Z")), 
+        		47.503406D, 
+        		9.711289D,
+        		1l,
+        		1l)));
+        log.info("Preloading move 3" + moveRepository.save(new Move("Tennis am Mittag", 
+        		"Bewegung in der Mittagspause", 
         		Date.from(Instant.parse("2021-07-03T16:00:00Z")), 
-        		Date.from(Instant.parse("2021-07-03T17:00:00Z")), 47.505227D, 9.728391D)));
+        		Date.from(Instant.parse("2021-07-03T17:00:00Z")), 
+        		47.505227D, 
+        		9.728391D,
+        		1l,
+        		1l)));
     };
   }
 }

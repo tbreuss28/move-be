@@ -1,19 +1,15 @@
-package com.movenow.movenow.application;
+package com.movenow.movenow.domain.skill;
 
 import com.movenow.movenow.domain.Skill;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/skills")
-public class SkillController {
+@Component
+public class SkillService {
 
     private List<Skill> skills  = new ArrayList<>();
 
@@ -33,20 +29,17 @@ public class SkillController {
         }});
     }
 
-    @GetMapping
     public List<Skill> getSkills() {
         return skills;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity getSkill(@PathVariable Long id) {
+    public Skill getSkill(Long id) {
         for (Skill skill:
                 skills) {
             if (skill.getId() == id) {
-                return ResponseEntity.ok(skill);
+            	return skill;
             }
         }
-
-        return ResponseEntity.notFound().build();
+        throw new NullPointerException();
     }
 }
