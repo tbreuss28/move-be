@@ -22,4 +22,4 @@ jobs:
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
             ./gradlew bootBuildImage --imageName=moveregistry.azurecr.io/move-be
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/move-be:latests
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/move-be
