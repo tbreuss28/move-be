@@ -7,7 +7,6 @@ import javax.persistence.Id;
 
 import com.movenow.movenow.domain.move.Move;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity(name="user")
@@ -21,6 +20,8 @@ public class User {
     private String lastName;
     
     private String userName;
+
+	private String avatarMediaId;
     
 
     public User() {}
@@ -62,6 +63,14 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+    
+    public String getAvatarMediaId() {
+ 		return avatarMediaId;
+ 	}
+
+ 	public void setAvatarMediaId(String avatarMediaId) {
+ 		this.avatarMediaId = avatarMediaId;
+ 	}
     
     @Override
 	  public boolean equals(Object o) {

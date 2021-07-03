@@ -5,11 +5,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,27 +34,23 @@ public class MoveUsersController {
 	   }
 	   
 	   
-	   	@GetMapping
-	    CollectionModel<EntityModel<MoveUser>> all() {
-	   
-	   		List<EntityModel<MoveUser>> moveUsers = moveUsersRepository.findAll()
-	    		.stream()
-	    		.map(moveUser -> EntityModel.of(moveUser, 
-	    				linkTo(methodOn(MoveUsersController.class).one(moveUser.getId())).withSelfRel(),
-	              		linkTo(methodOn(MoveUsersController.class).all()).withRel("moveUsers")))
-	    		.collect(Collectors.toList());
-
-	    	return CollectionModel.of(moveUsers, linkTo(methodOn(MoveController.class).getMoves()).withSelfRel());
-		   
+	   @GetMapping
+	   public List<MoveUser> all() {
+	    	List<MoveUser> moveUsers = moveUsersRepository.findAll();
+	    	return moveUsers;
 	    }
+	   
+	   
+	   
 	       
 	   @GetMapping("/{id}")
-	   EntityModel<MoveUser> one(@PathVariable Long id) {
+	   public ResponseEntity<MoveUser> one(@PathVariable Long id) {
 		   MoveUser moveUser = moveUsersRepository.findById(id).orElseThrow(RuntimeException::new);
-
-		   return EntityModel.of(moveUser,
-				   linkTo(methodOn(MoveUsersController.class).one(id)).withSelfRel(),
-				   linkTo(methodOn(MoveUsersController.class).all()).withRel("moves"));
+		   if(moveUser != null) {
+			   return ResponseEntity.ok(moveUser);	   
+		   } else {
+			   return ResponseEntity.notFound().build();
+		   }
 	   }
 	   
 	   @PostMapping
