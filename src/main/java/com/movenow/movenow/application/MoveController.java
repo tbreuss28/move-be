@@ -45,92 +45,92 @@ public class MoveController {
 	@Autowired
 	SkillService skillService;
 	
-	   private final MoveRepository moveRepository;
-	   private final UserRepository userRepository;
-	   private final MoveUsersRepository moveUsersRepository;
+   private final MoveRepository moveRepository;
+   private final UserRepository userRepository;
+   private final MoveUsersRepository moveUsersRepository;
 
 
 
-	   public MoveController(MoveRepository moveRepository, UserRepository userRepository, MoveUsersRepository moveUsersRepository) {
-	       this.moveRepository = moveRepository;
-	       this.userRepository = userRepository;
-	       this.moveUsersRepository = moveUsersRepository;
+   public MoveController(MoveRepository moveRepository, UserRepository userRepository, MoveUsersRepository moveUsersRepository) {
+	   this.moveRepository = moveRepository;
+	   this.userRepository = userRepository;
+	   this.moveUsersRepository = moveUsersRepository;
+   }
+	
+	@GetMapping
+	List<MoveDTO> getMoves() {
+		List<MoveDTO> moveDTOs = new ArrayList<>();
+		List<Move> moves = moveRepository.findAll();
+		for (Move move : moves) {
+			moveDTOs.add(toDTO(move));
+		}
+		return moveDTOs;
+	}
+	
+	@GetMapping("/{id}")
+	 MoveDTO getMove(@PathVariable Long id) {
+
+		Move move = moveRepository.findById(id).orElseThrow(RuntimeException::new);
+		return toDTO(move);
 	   }
-	    
-	    @GetMapping
-	    List<MoveDTO> getMoves() {
-	    	List<MoveDTO> moveDTOs = new ArrayList<>();
-	    	List<Move> moves = moveRepository.findAll();
-	    	for (Move move : moves) {
-				moveDTOs.add(toDTO(move));
-			}
-	    	return moveDTOs;
-	    }
-	    
-	    @GetMapping("/{id}")
-		 MoveDTO getMove(@PathVariable Long id) {
 
-	    	Move move = moveRepository.findById(id).orElseThrow(RuntimeException::new);
-	    	return toDTO(move);
-		   }
 
+
+	@PostMapping
+	public ResponseEntity createMove(@RequestBody Move move) throws URISyntaxException {
+		var savedMove = moveRepository.save(move);
+		return ResponseEntity.created(new URI("/moves/" + savedMove.getId())).body(savedMove);
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity updateMove(@PathVariable Long id, @RequestBody Move move) {
+		var currentMove = moveRepository.findById(id).orElseThrow(RuntimeException::new);
+		currentMove.setName(move.getName());
+		currentMove.setDescription(move.getDescription());
+		currentMove.setStartTime(move.getStartTime());
+		currentMove.setEndTime(move.getEndTime());
+		currentMove.setLatitude(move.getLatitude());
+		currentMove.setLongitude(move.getLongitude());
+		currentMove = moveRepository.save(move);
+
+		return ResponseEntity.ok(currentMove);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity deleteMove(@PathVariable Long id) {
+		moveRepository.deleteById(id);
+		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/{id}/users")
+	public List<User> moveUsers(@PathVariable Long id) throws URISyntaxException {
+		List<Long> userIds = new ArrayList<>();
+		List<MoveUser> moveUsers = moveUsersRepository.findByMoveId(id);
+		for (MoveUser moveUser : moveUsers) {
+			var userId = moveUser.getUserId();
+			userIds.add(moveUser.getUserId());
+		}
+   
+	
+		return userRepository.findByIdIn(userIds);
+	}
 	
 
-		@PostMapping
-	    public ResponseEntity createMove(@RequestBody Move move) throws URISyntaxException {
-	    	var savedMove = moveRepository.save(move);
-	        return ResponseEntity.created(new URI("/moves/" + savedMove.getId())).body(savedMove);
-	    }
-
-	    @PutMapping("/{id}")
-	    public ResponseEntity updateMove(@PathVariable Long id, @RequestBody Move move) {
-	        var currentMove = moveRepository.findById(id).orElseThrow(RuntimeException::new);
-	        currentMove.setName(move.getName());
-			currentMove.setDescription(move.getDescription());
-			currentMove.setStartTime(move.getStartTime());
-			currentMove.setEndTime(move.getEndTime());
-			currentMove.setLatitude(move.getLatitude());
-			currentMove.setLongitude(move.getLongitude());
-	        currentMove = moveRepository.save(move);
-
-	        return ResponseEntity.ok(currentMove);
-	    }
-
-	    @DeleteMapping("/{id}")
-	    public ResponseEntity deleteMove(@PathVariable Long id) {
-	    	moveRepository.deleteById(id);
-	        return ResponseEntity.ok().build();
-	    }
-
-	    @GetMapping("/{id}/users")
-	    public List<User> moveUsers(@PathVariable Long id) throws URISyntaxException {
-	    	List<Long> userIds = new ArrayList<>();
-	    	List<MoveUser> moveUsers = moveUsersRepository.findByMoveId(id);
-	    	for (MoveUser moveUser : moveUsers) {
-	    		var userId = moveUser.getUserId();
-	    		userIds.add(moveUser.getUserId());
-	    	}
-	   
-	   	
-	    	return userRepository.findByIdIn(userIds);
-	    }
-	    
-
-	    private MoveDTO toDTO(Move move) {
-	    	var moveDTO =  new MoveDTO(move);
-	    	
-	    	if(move.getCategoryId() != null) {
-	    		Category category = categoryService.getCategory(move.getCategoryId());
-	    		moveDTO.setCategoryName(category.getName());
-	    	}
-	    	
-	    	if(move.getSkillId() != null) {
-	    		Skill skill = skillService.getSkill(move.getSkillId());
-	    		moveDTO.setSkillName(skill.getName());		
-	    	}
-	    	
-	    	return moveDTO;
+	private MoveDTO toDTO(Move move) {
+		var moveDTO =  new MoveDTO(move);
+		
+		if(move.getCategoryId() != null) {
+			Category category = categoryService.getCategory(move.getCategoryId());
+			moveDTO.setCategoryName(category.getName());
 		}
+		
+		if(move.getSkillId() != null) {
+			Skill skill = skillService.getSkill(move.getSkillId());
+			moveDTO.setSkillName(skill.getName());		
+		}
+		
+		return moveDTO;
+	}
 	    
 
 }
