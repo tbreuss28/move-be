@@ -1,7 +1,17 @@
 package com.movenow.movenow.domain;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "category")
 public class Skill{
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String name;

@@ -1,12 +1,19 @@
 package com.movenow.movenow.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "category")
 public class Category{
-    
+
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String name;
-    
-    private Skill skill;
 
     public Long getId() {
         return id;
@@ -22,14 +29,6 @@ public class Category{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Skill getSkill() {
-        return skill;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
     }
 }
 
