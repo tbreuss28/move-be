@@ -28,17 +28,17 @@ public class CategoryService {
             setId(3L);
             setName("Baseball");
         }});
-        categories.add(new Category() {{
+    	categories.add(new Category() {{
             setId(4L);
-            setName("Billard");
+            setName("Basketball");
         }});
         categories.add(new Category() {{
             setId(5L);
-            setName("Boxen");
+            setName("Billard");
         }});
         categories.add(new Category() {{
             setId(6L);
-            setName("Basketball");
+            setName("Boxen");
         }});
         categories.add(new Category() {{
             setId(7L);
