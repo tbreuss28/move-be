@@ -32,8 +32,8 @@ public class LoadDatabase {
         		Date.from(Instant.parse("2021-07-03T15:00:00Z")), 
         		47.500897D, 
         		9.745009D,
-        		1l,
-        		1l)));
+        		1L,
+				GetRandomNumber(1L, 3L))));
         log.info("Preloading move 2" + moveRepository.save(new Move(
         		"HobbyKick Bregenz", 
         		"Tschutta in Neu Amerika", 
@@ -41,24 +41,24 @@ public class LoadDatabase {
         		Date.from(Instant.parse("2021-07-03T18:00:00Z")), 
         		47.503406D, 
         		9.711289D,
-        		1l,
-        		1l)));
+				GetRandomNumber(1L, 10L),
+				GetRandomNumber(1L, 3L))));
         log.info("Preloading move 3" + moveRepository.save(new Move("Tennis am Mittag", 
         		"Bewegung in der Mittagspause", 
         		Date.from(Instant.parse("2021-07-03T16:00:00Z")), 
         		Date.from(Instant.parse("2021-07-03T17:00:00Z")), 
         		47.505227D, 
         		9.728391D,
-        		1l,
-        		1l)));
+				GetRandomNumber(1L, 10L),
+				GetRandomNumber(1L, 3L))));
     };
   }
   
   private Long GetRandomNumber(Long minValue, Long maxValue){
-  	var random = new Random(maxValue - minValue);
-  	var number = random.nextLong();
-  	
-  	return new Random().nextLong(maxValue - minValue) + minValue;
+  	var random = new Random();
+  	var number = random.nextInt((int)(maxValue - minValue));
+	  
+  	return Long.valueOf(number);
   }
 }
 
