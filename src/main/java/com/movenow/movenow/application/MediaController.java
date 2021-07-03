@@ -1,12 +1,8 @@
 package com.movenow.movenow.application;
 
 
-import com.movenow.movenow.LoadDatabase;
 import com.movenow.movenow.domain.Media;
-import com.movenow.movenow.domain.MediaRepository;
 import com.movenow.movenow.service.FileStorageService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,29 +16,28 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping("/api/media")
 public class MediaController {
-    private final MediaRepository mediaRepository;
     @Autowired
     private FileStorageService storageService;
 
-    public MediaController(MediaRepository mediaRepository) {
-        this.mediaRepository = mediaRepository;
+    public MediaController() {
+    }
+
+    public MediaController(FileStorageService storageService) {
+        this.storageService = storageService;
     }   
 
     @GetMapping("/{id}")
     public Media getMedia(@PathVariable Long id) {
         return storageService.getMedia(id);
     }
-
-    private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
     
     @GetMapping(
             value = "/{id}/download",
             produces = MediaType.IMAGE_GIF_VALUE
     )
-    public byte[] getFile(@PathVariable Long id) {        
-        var file = storageService.getFile(id);
-        
-        return file;
+    public byte[] getFile(@PathVariable Long id) {
+
+        return storageService.getFile(id);
     }
 
     @PostMapping
@@ -54,7 +49,7 @@ public class MediaController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateMedia(@PathVariable Long id, @RequestBody Media media) {
-        var currentMedia = storageService.updateMedia(media);
+        var currentMedia = storageService.updateMedia(id, media);
 
         return ResponseEntity.ok(currentMedia);
     }

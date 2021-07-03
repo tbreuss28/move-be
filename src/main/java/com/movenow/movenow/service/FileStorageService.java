@@ -23,8 +23,8 @@ public class FileStorageService {
         return mediaRepository.findById(id).get();
     }
     
-    public Media updateMedia(Media media){
-        var updatedMedia = mediaRepository.findById(media.getId()).orElseThrow(RuntimeException::new);
+    public Media updateMedia(Long id, Media media){
+        var updatedMedia = mediaRepository.findById(id).orElseThrow(RuntimeException::new);
         updatedMedia.setFile(media.getFile());
         updatedMedia = mediaRepository.save(media);
         
