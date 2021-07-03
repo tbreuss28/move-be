@@ -15,6 +15,7 @@ public class MoveDTO {
 	private String categoryName;
 	private Long skillId;
 	private String skillName;
+	private Long creatorId;
 	
 	public MoveDTO() {
 		
@@ -30,10 +31,7 @@ public class MoveDTO {
 		this.longitude =  move.getLongitude();
 		this.categoryId =  move.getCategoryId();
 		this.skillId =  move.getSkillId();
-	
-	
-		//TODO: this.categoryName =  move.getName();
-		//TODO: this.skillName =  move.getName();
+		this.creatorId =  move.getCreatorId();
 	}
 	
 	
