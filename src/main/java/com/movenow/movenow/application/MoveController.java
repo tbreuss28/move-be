@@ -102,17 +102,15 @@ public class MoveController {
 		return ResponseEntity.ok().build();
 	}
 
-	@GetMapping("/{id}/users")
-	public List<User> moveUsers(@PathVariable Long id) throws URISyntaxException {
-		List<Long> userIds = new ArrayList<>();
-		List<MoveUser> moveUsers = moveUsersRepository.findByMoveId(id);
+	@GetMapping("/{moveId}/moveUsers")
+	public List<MoveUser> moveUsers(@PathVariable Long moveId) throws URISyntaxException {
+		var moveUsers = moveUsersRepository.findByMoveId(moveId);
 		for (MoveUser moveUser : moveUsers) {
-			var userId = moveUser.getUserId();
-			userIds.add(moveUser.getUserId());
+			var user = userRepository.getById(moveUser.getUserId());
+			System.out.println("########################### " + user);
+			moveUser.setUser(user);
 		}
-   
-	
-		return userRepository.findByIdIn(userIds);
+		return moveUsers;
 	}
 	
 
