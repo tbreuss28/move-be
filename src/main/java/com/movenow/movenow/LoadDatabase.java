@@ -26,6 +26,12 @@ public class LoadDatabase {
     return args -> {
     	log.info("Preloading user clockright" + userRepository.save(new User("Dominik", "M", "clockRight" )));
     	log.info("Preloading user kirbby" + userRepository.save(new User("Matthias", "W", "kirbby")));
+	
+	userRepository.save(new User("Thomas", "B", "tom"));
+    	userRepository.save(new User("Patrick", "S", "patrick"));
+    	userRepository.save(new User("Jean", "S", "jean"));
+    	userRepository.save(new User("Karim", "A", "karim"));
+	    
         log.info("Preloading move 1" + moveRepository.save(new Move(
         		"Lauftreff Leiblachtal", 
         		"Wöchentlicher Lauftreff für alle aus dem Leiblachtal.", 
