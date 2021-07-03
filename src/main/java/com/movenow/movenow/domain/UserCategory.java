@@ -15,6 +15,8 @@ public class UserCategory {
     private Long userId;
     
     private Long categoryId;
+    
+	private Long skillId;
 
     public Long getId() {
         return id;
@@ -39,4 +41,12 @@ public class UserCategory {
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
+    
+    public Long getSkillId() {
+		return skillId;
+	}
+
+	public void setSkillId(Long skillId) {
+		this.skillId = skillId;
+	}
 }
