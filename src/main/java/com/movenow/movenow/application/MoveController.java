@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -106,9 +107,8 @@ public class MoveController {
 	public List<MoveUser> moveUsers(@PathVariable Long moveId) throws URISyntaxException {
 		var moveUsers = moveUsersRepository.findByMoveId(moveId);
 		for (MoveUser moveUser : moveUsers) {
-			var user = userRepository.getById(moveUser.getUserId());
-			System.out.println("########################### " + user);
-			moveUser.setUser(user);
+			Optional<User> user = userRepository.findById(moveUser.getUserId());
+			moveUser.setUser( user.get());
 		}
 		return moveUsers;
 	}
