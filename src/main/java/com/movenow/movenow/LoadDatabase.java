@@ -1,7 +1,5 @@
 package com.movenow.movenow;
 
-import com.movenow.movenow.domain.Move;
-import com.movenow.movenow.domain.MoveRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.movenow.movenow.domain.User;
 import com.movenow.movenow.domain.UserRepository;
+import com.movenow.movenow.domain.move.Move;
+import com.movenow.movenow.domain.move.MoveRepository;
 
 import java.time.Instant;
 import java.util.Calendar;
