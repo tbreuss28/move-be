@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity(name="user")
@@ -18,6 +18,8 @@ public class User {
     private String lastName;
     
     private String userName;
+    
+    private ArrayList<Category> categories;
 
     public User() {}
     
@@ -57,6 +59,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
     }
     
     @Override

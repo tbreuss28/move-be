@@ -5,6 +5,8 @@ public class Category{
     private Long id;
 
     private String name;
+    
+    private Skill skill;
 
     public Long getId() {
         return id;
@@ -20,6 +22,14 @@ public class Category{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 }
 
