@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 @Entity(name="user")
 public class User {
@@ -57,4 +58,26 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+    
+    @Override
+	  public boolean equals(Object o) {
+
+	    if (this == o)
+	      return true;
+	    if (!(o instanceof Move))
+	      return false;
+	    User user = (User) o;
+	    return Objects.equals(this.id, user.id);
+	  }
+
+	  @Override
+	  public int hashCode() {
+	    return Objects.hash(this.id);
+	  }
+
+	  @Override
+	  public String toString() {
+	    return "Move{" + "id=" + this.id + ", name='" + this.userName + '\'' + '}';
+	  }
+	
 }

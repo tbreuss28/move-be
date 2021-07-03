@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "move")
@@ -107,4 +108,29 @@ public class Move {
 	public void setUsers(ArrayList<User> users) {
 		this.users = users;
 	}
+	
+	@Override
+	  public boolean equals(Object o) {
+
+	    if (this == o)
+	      return true;
+	    if (!(o instanceof Move))
+	      return false;
+	    Move move = (Move) o;
+	    return Objects.equals(this.id, move.id);
+	  }
+
+	  @Override
+	  public int hashCode() {
+	    return Objects.hash(this.id);
+	  }
+
+	  @Override
+	  public String toString() {
+	    return "Move{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
+	  }
 }
+	
+	
+
+
