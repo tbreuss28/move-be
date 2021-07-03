@@ -1,10 +1,9 @@
-package com.movenow.movenow.domain;
-
-import com.fasterxml.jackson.databind.util.ClassUtil;
+package com.movenow.movenow.domain.move;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +29,6 @@ public class Move {
 	
 	private Double longitude;
 	
-	private ArrayList<User> users = new ArrayList<>();
 
 	public Move() {}
 
@@ -101,13 +99,6 @@ public class Move {
 		this.longitude = longitude;
 	}
 
-	public ArrayList<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(ArrayList<User> users) {
-		this.users = users;
-	}
 	
 	@Override
 	  public boolean equals(Object o) {

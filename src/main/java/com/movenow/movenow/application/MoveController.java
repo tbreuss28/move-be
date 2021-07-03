@@ -2,11 +2,17 @@ package com.movenow.movenow.application;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.movenow.movenow.domain.MoveUser;
+import com.movenow.movenow.domain.MoveUsersRepository;
 import com.movenow.movenow.domain.User;
+import com.movenow.movenow.domain.UserRepository;
+import com.movenow.movenow.domain.move.Move;
+import com.movenow.movenow.domain.move.MoveRepository;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -20,8 +26,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.movenow.movenow.domain.Move;
-import com.movenow.movenow.domain.MoveRepository;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 
@@ -30,15 +34,21 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 public class MoveController {	
 	
 	   private final MoveRepository moveRepository;
+	   private final UserRepository userRepository;
+	   private final MoveUsersRepository moveUsersRepository;
 
-	   public MoveController(MoveRepository moveRepository) {
+
+
+	   public MoveController(MoveRepository moveRepository, UserRepository userRepository, MoveUsersRepository moveUsersRepository) {
 	       this.moveRepository = moveRepository;
+	       this.userRepository = userRepository;
+	       this.moveUsersRepository = moveUsersRepository;
 	   }
 	    
 	    @GetMapping
 	    CollectionModel<EntityModel<Move>> getMoves() {
 
-	    List<EntityModel<Move>> moves = moveRepository.findAll().stream()
+	    	List<EntityModel<Move>> moves = moveRepository.findAll().stream()
 	    		.map(move -> EntityModel.of(move, 
 	    				linkTo(methodOn(MoveController.class).getMove(move.getId())).withSelfRel(),
 	              		linkTo(methodOn(MoveController.class).getMoves()).withRel("moves")))
@@ -85,15 +95,19 @@ public class MoveController {
 	        return ResponseEntity.ok().build();
 	    }
 
-		@PostMapping("/{id}/users")
-		public ResponseEntity addUser(@PathVariable Long id, @RequestBody User user) throws URISyntaxException {
-			var currentMove = moveRepository.findById(id).orElseThrow(RuntimeException::new);
-			var currentMoveUsers = currentMove.getUsers();
-			
-			currentMoveUsers.add(user);			
-			currentMove.setUsers(currentMoveUsers);
-			moveRepository.save(currentMove);
-			
-			return ResponseEntity.created(new URI("/moves/" + currentMove.getId())).body(currentMove);
-		}
+	    @GetMapping("/{id}/users")
+	    public List<User> moveUsers(@PathVariable Long id) throws URISyntaxException {
+	    	System.out.println("##################################### ");
+	    	List<Long> userIds = new ArrayList<>();
+	    	List<MoveUser> moveUsers = moveUsersRepository.findByMoveId(id);
+	    	for (MoveUser moveUser : moveUsers) {
+	    		var userId = moveUser.getUserId();
+	    		userIds.add(moveUser.getUserId());
+	    	}
+	   
+	   	
+	    	return userRepository.findByIdIn(userIds);
+	    }
+	    
+
 }
