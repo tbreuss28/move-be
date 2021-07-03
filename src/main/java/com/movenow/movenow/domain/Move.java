@@ -37,10 +37,10 @@ public class Move {
 	public Move(String name, String description, Date startTime, Date endTime, double latitude, double longitude) {
 		this.name = name;
 		this.description = description;
-//		this.startTime = startTime;
-//		this.endTime = endTime;
-//		this.latitude = latitude;
-//		this.longitude = longitude;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 
