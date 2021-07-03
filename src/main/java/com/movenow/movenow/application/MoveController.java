@@ -3,8 +3,13 @@ package com.movenow.movenow.application;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.movenow.movenow.domain.User;
+
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.movenow.movenow.domain.Move;
 import com.movenow.movenow.domain.MoveRepository;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 
 @RestController
@@ -28,16 +34,30 @@ public class MoveController {
 	   public MoveController(MoveRepository moveRepository) {
 	       this.moveRepository = moveRepository;
 	   }
-
+	    
 	    @GetMapping
-	    public List<Move> getMoves() {	        
-	   		return moveRepository.findAll();
-	    }
+	    CollectionModel<EntityModel<Move>> getMoves() {
 
-	    @GetMapping("/{id}")
-	    public Move getMove(@PathVariable Long id) {
-	        return moveRepository.findById(id).orElseThrow(RuntimeException::new);
+	    List<EntityModel<Move>> moves = moveRepository.findAll().stream()
+	    		.map(move -> EntityModel.of(move, 
+	    				linkTo(methodOn(MoveController.class).getMove(move.getId())).withSelfRel(),
+	              		linkTo(methodOn(MoveController.class).getMoves()).withRel("moves")))
+	    		.collect(Collectors.toList());
+
+	    	return CollectionModel.of(moves, linkTo(methodOn(MoveController.class).getMoves()).withSelfRel());
 	    }
+	    
+	    @GetMapping("/{id}")
+		 EntityModel<Move> getMove(@PathVariable Long id) {
+
+	    	Move move = moveRepository.findById(id).orElseThrow(RuntimeException::new);
+
+		     return EntityModel.of(move,
+		         linkTo(methodOn(MoveController.class).getMove(id)).withSelfRel(),
+		         linkTo(methodOn(MoveController.class).getMoves()).withRel("moves"));
+		   }
+
+	
 
 	    @PostMapping
 	    public ResponseEntity createMove(@RequestBody Move move) throws URISyntaxException {
