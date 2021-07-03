@@ -1,19 +1,18 @@
 package com.movenow.movenow;
 
+import com.movenow.movenow.domain.User;
+import com.movenow.movenow.domain.UserRepository;
+import com.movenow.movenow.domain.move.Move;
+import com.movenow.movenow.domain.move.MoveRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.movenow.movenow.domain.User;
-import com.movenow.movenow.domain.UserRepository;
-import com.movenow.movenow.domain.move.Move;
-import com.movenow.movenow.domain.move.MoveRepository;
-
 import java.time.Instant;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 @Configuration
 public class LoadDatabase {
@@ -22,7 +21,7 @@ public class LoadDatabase {
   
   @Bean
   CommandLineRunner initDatabase(UserRepository userRepository, MoveRepository moveRepository) {
-	  
+	  	
     return args -> {
     	log.info("Preloading user clockright" + userRepository.save(new User("Dominik", "M", "clockRight" )));
     	log.info("Preloading user kirbby" + userRepository.save(new User("Matthias", "W", "kirbby")));
@@ -53,6 +52,13 @@ public class LoadDatabase {
         		1l,
         		1l)));
     };
+  }
+  
+  private Long GetRandomNumber(Long minValue, Long maxValue){
+  	var random = new Random(maxValue - minValue);
+  	var number = random.nextLong();
+  	
+  	return new Random().nextLong(maxValue - minValue) + minValue;
   }
 }
 
