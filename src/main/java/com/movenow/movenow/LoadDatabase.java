@@ -287,9 +287,9 @@ public class LoadDatabase {
 
     private Long GetRandomNumber(Long minValue, Long maxValue) {
         var random = new Random();
-        var number = random.nextInt((int) (maxValue - minValue));
+        var number = random.nextInt((int) (maxValue - minValue + 1));
 
-        return Long.valueOf(number);
+        return Long.valueOf(number + minValue);
     }
 }
 
