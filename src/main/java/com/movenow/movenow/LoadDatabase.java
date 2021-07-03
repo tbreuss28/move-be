@@ -33,7 +33,8 @@ public class LoadDatabase {
         		47.500897D, 
         		9.745009D,
         		1L,
-				GetRandomNumber(1L, 3L))));
+				GetRandomNumber(1L, 3L),
+				1L)));
         log.info("Preloading move 2" + moveRepository.save(new Move(
         		"HobbyKick Bregenz", 
         		"Tschutta in Neu Amerika", 
@@ -42,7 +43,8 @@ public class LoadDatabase {
         		47.503406D, 
         		9.711289D,
 				GetRandomNumber(1L, 10L),
-				GetRandomNumber(1L, 3L))));
+				GetRandomNumber(1L, 3L),
+				1L)));
         log.info("Preloading move 3" + moveRepository.save(new Move("Tennis am Mittag", 
         		"Bewegung in der Mittagspause", 
         		Date.from(Instant.parse("2021-07-03T16:00:00Z")), 
@@ -50,7 +52,8 @@ public class LoadDatabase {
         		47.505227D, 
         		9.728391D,
 				GetRandomNumber(1L, 10L),
-				GetRandomNumber(1L, 3L))));
+				GetRandomNumber(1L, 3L),
+				1L)));
     };
   }
   

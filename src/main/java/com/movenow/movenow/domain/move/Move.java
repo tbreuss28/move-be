@@ -33,11 +33,12 @@ public class Move {
 	
 	private Long skillId;
 	
+	private Long creatorId;
 
 
 	public Move() {}
 
-	public Move(String name, String description, Date startTime, Date endTime, double latitude, double longitude, Long categoryId, Long skillId) {
+	public Move(String name, String description, Date startTime, Date endTime, double latitude, double longitude, Long categoryId, Long skillId, Long creatorId) {
 		this.name = name;
 		this.description = description;
 		this.startTime = startTime;
@@ -46,6 +47,7 @@ public class Move {
 		this.longitude = longitude;
 		this.categoryId = categoryId;
 		this.skillId = skillId;
+		this.creatorId = creatorId;
 	}
 
 
@@ -144,6 +146,14 @@ public class Move {
 	  public String toString() {
 	    return "Move{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
 	  }
+
+	public Long getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Long creatorId) {
+		this.creatorId = creatorId;
+	}
 }
 	
 	
