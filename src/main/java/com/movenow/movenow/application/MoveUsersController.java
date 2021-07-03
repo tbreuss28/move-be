@@ -1,7 +1,5 @@
 package com.movenow.movenow.application;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,9 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.hateoas.EntityModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,9 +35,14 @@ public class MoveUsersController {
 	   public List<MoveUser> all() {
 	    	List<MoveUser> moveUsers = moveUsersRepository.findAll();
 	    	return moveUsers;
-	    }
+	   }
 	   
-	   
+	   @DeleteMapping("/{id}")
+	    public ResponseEntity<MoveUser> delete(@PathVariable Long id) {
+		   moveUsersRepository.deleteById(id);
+	        return ResponseEntity.ok().build();
+	   }
+	  
 	   
 	       
 	   @GetMapping("/{id}")
