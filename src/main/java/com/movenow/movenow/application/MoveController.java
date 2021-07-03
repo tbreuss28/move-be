@@ -7,13 +7,19 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.movenow.movenow.domain.Category;
 import com.movenow.movenow.domain.MoveUser;
 import com.movenow.movenow.domain.MoveUsersRepository;
+import com.movenow.movenow.domain.Skill;
 import com.movenow.movenow.domain.User;
 import com.movenow.movenow.domain.UserRepository;
+import com.movenow.movenow.domain.category.CategoryService;
 import com.movenow.movenow.domain.move.Move;
+import com.movenow.movenow.domain.move.MoveDTO;
 import com.movenow.movenow.domain.move.MoveRepository;
+import com.movenow.movenow.domain.skill.SkillService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +37,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/moves")
-public class MoveController {	
+public class MoveController {
+	
+	@Autowired
+	CategoryService categoryService;
+	
+	@Autowired
+	SkillService skillService;
 	
 	   private final MoveRepository moveRepository;
 	   private final UserRepository userRepository;
@@ -46,30 +58,25 @@ public class MoveController {
 	   }
 	    
 	    @GetMapping
-	    CollectionModel<EntityModel<Move>> getMoves() {
-
-	    	List<EntityModel<Move>> moves = moveRepository.findAll().stream()
-	    		.map(move -> EntityModel.of(move, 
-	    				linkTo(methodOn(MoveController.class).getMove(move.getId())).withSelfRel(),
-	              		linkTo(methodOn(MoveController.class).getMoves()).withRel("moves")))
-	    		.collect(Collectors.toList());
-
-	    	return CollectionModel.of(moves, linkTo(methodOn(MoveController.class).getMoves()).withSelfRel());
+	    List<MoveDTO> getMoves() {
+	    	List<MoveDTO> moveDTOs = new ArrayList<>();
+	    	List<Move> moves = moveRepository.findAll();
+	    	for (Move move : moves) {
+				moveDTOs.add(toDTO(move));
+			}
+	    	return moveDTOs;
 	    }
 	    
 	    @GetMapping("/{id}")
-		 EntityModel<Move> getMove(@PathVariable Long id) {
+		 MoveDTO getMove(@PathVariable Long id) {
 
 	    	Move move = moveRepository.findById(id).orElseThrow(RuntimeException::new);
-
-		     return EntityModel.of(move,
-		         linkTo(methodOn(MoveController.class).getMove(id)).withSelfRel(),
-		         linkTo(methodOn(MoveController.class).getMoves()).withRel("moves"));
+	    	return toDTO(move);
 		   }
 
 	
 
-	    @PostMapping
+		@PostMapping
 	    public ResponseEntity createMove(@RequestBody Move move) throws URISyntaxException {
 	    	var savedMove = moveRepository.save(move);
 	        return ResponseEntity.created(new URI("/moves/" + savedMove.getId())).body(savedMove);
@@ -97,7 +104,6 @@ public class MoveController {
 
 	    @GetMapping("/{id}/users")
 	    public List<User> moveUsers(@PathVariable Long id) throws URISyntaxException {
-	    	System.out.println("##################################### ");
 	    	List<Long> userIds = new ArrayList<>();
 	    	List<MoveUser> moveUsers = moveUsersRepository.findByMoveId(id);
 	    	for (MoveUser moveUser : moveUsers) {
@@ -108,6 +114,25 @@ public class MoveController {
 	   	
 	    	return userRepository.findByIdIn(userIds);
 	    }
+	    
+
+	    private MoveDTO toDTO(Move move) {
+	    	var moveDTO =  new MoveDTO(move);
+	    	
+	    	if(move.getCategoryId() != null) {
+	    		Category category = categoryService.getCategory(move.getCategoryId());
+	    		System.out.println("############## " + category.getName());
+	    		moveDTO.setCategoryName(category.getName());
+	    	}
+	    	
+	    	if(move.getSkillId() != null) {
+	    		Skill skill = skillService.getSkill(move.getSkillId());
+	    		System.out.println("############## " + skill.getName());
+	    		moveDTO.setSkillName(skill.getName());		
+	    	}
+	    	
+	    	return moveDTO;
+		}
 	    
 
 }
