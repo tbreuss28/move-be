@@ -50,6 +50,7 @@ public class LoadDatabase
                     GetRandomNumber(1L, 3L),
                     1L,
                     video.getId()));
+            
             moveRepository.save(new Move("HobbyKick Bregenz",
                     "Tschutta in Neu Amerika",
                     Date.from(Instant.parse("2021-07-10T16:00:00Z")),
@@ -60,6 +61,7 @@ public class LoadDatabase
                     GetRandomNumber(1L, 3L),
                     1L,
                     null));
+
             moveRepository.save(new Move("Tennis am Mittag",
                     "Bewegung in der Mittagspause",
                     Date.from(Instant.parse("2021-07-13T12:00:00Z")),
@@ -70,6 +72,7 @@ public class LoadDatabase
                     GetRandomNumber(1L, 3L),
                     1L,
                     null));
+
             moveRepository.save(new Move("HuddleUp Main Event ",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
