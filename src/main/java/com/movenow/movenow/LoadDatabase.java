@@ -1,5 +1,6 @@
 package com.movenow.movenow;
 
+import com.movenow.movenow.domain.MoveUsersRepository;
 import com.movenow.movenow.domain.User;
 import com.movenow.movenow.domain.UserRepository;
 import com.movenow.movenow.domain.move.Move;
@@ -24,7 +25,8 @@ public class LoadDatabase
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository,
             MoveRepository moveRepository,
-            FileStorageService fileStorageService)
+            FileStorageService fileStorageService,
+            MoveUsersRepository moveUsersRepository)
     {
 
         return args -> {
@@ -35,22 +37,22 @@ public class LoadDatabase
             userRepository.save(new User("Jean", "S", "jean"));
             userRepository.save(new User("Karim", "A", "karim"));
 
-            var video = fileStorageService.store("http://vinalandscape.com/wp-content/uploads/2019/06/sample.jpg");
+            var video = fileStorageService.store("http://vinalandscape.com/wp-content/uploads/2019/06/sample.jpg");            
 
             moveRepository.save(new Move("Lauftreff Leiblachtal",
                     "Wöchentlicher Lauftreff für alle aus dem Leiblachtal.",
-                    Date.from(Instant.parse("2021-07-03T14:00:00Z")),
-                    Date.from(Instant.parse("2021-07-03T15:00:00Z")),
+                    Date.from(Instant.parse("2021-07-11T20:00:00Z")),
+                    Date.from(Instant.parse("2021-07-11T21:00:00Z")),
                     47.500897D,
                     9.745009D,
                     1L,
                     GetRandomNumber(1L, 3L),
                     1L,
-                    0L));
+                    null));
             moveRepository.save(new Move("HobbyKick Bregenz",
                     "Tschutta in Neu Amerika",
-                    Date.from(Instant.parse("2021-07-03T16:00:00Z")),
-                    Date.from(Instant.parse("2021-07-03T18:00:00Z")),
+                    Date.from(Instant.parse("2021-07-10T16:00:00Z")),
+                    Date.from(Instant.parse("2021-07-10T18:00:00Z")),
                     47.503406D,
                     9.711289D,
                     GetRandomNumber(1L, 10L),
@@ -59,14 +61,14 @@ public class LoadDatabase
                     video.getId()));
             moveRepository.save(new Move("Tennis am Mittag",
                     "Bewegung in der Mittagspause",
-                    Date.from(Instant.parse("2021-07-03T16:00:00Z")),
-                    Date.from(Instant.parse("2021-07-03T17:00:00Z")),
+                    Date.from(Instant.parse("2021-07-13T12:00:00Z")),
+                    Date.from(Instant.parse("2021-07-13T13:00:00Z")),
                     47.505227D,
                     9.728391D,
                     GetRandomNumber(1L, 10L),
                     GetRandomNumber(1L, 3L),
                     1L,
-                    0L));
+                    null));;
             moveRepository.save(new Move("HuddleUp Main Event ",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -76,7 +78,7 @@ public class LoadDatabase
                     1L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Vorarlberg International Badminton Championships 2021",
                     "Größtes Badminton Turnier Vorarlbergs.",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -86,7 +88,7 @@ public class LoadDatabase
                     2L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("All-Star Game Series",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -96,7 +98,7 @@ public class LoadDatabase
                     3L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Körbe, Körbe, Körbe Nachwuchstraining",
                     "Großer Nachwuchs gesucht",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -106,7 +108,7 @@ public class LoadDatabase
                     4L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Schnuppertraining für Anfänger",
                     "Einfach vorbei kommen",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -116,7 +118,7 @@ public class LoadDatabase
                     5L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Leichtgewicht Sparring Partner gesucht!",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -126,7 +128,7 @@ public class LoadDatabase
                     6L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Dart am Nachmittag",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -136,7 +138,7 @@ public class LoadDatabase
                     7L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Eishockey Grümpel Turnier",
                     "4 Spieler Kleinfeld",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -146,7 +148,7 @@ public class LoadDatabase
                     8L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Rocket League Mitspieler gesucht",
                     "Für täglichen Grind und viele Tore",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -156,7 +158,7 @@ public class LoadDatabase
                     9L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Hobby Kick Mannschafft sucht neuen Messi",
                     "Jede Woche 1 Training + 1 Match",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -166,7 +168,7 @@ public class LoadDatabase
                     10L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Landesmeisterschaften Golf Qualifikation",
                     "Jeder kann mitmachen",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -176,7 +178,7 @@ public class LoadDatabase
                     11L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Waldlaufweg 48",
                     "Gemütliches Tempo",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -186,7 +188,7 @@ public class LoadDatabase
                     12L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Auf und Ab / Passtour",
                     "Ca. 1000 Höhenmeter",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -196,7 +198,7 @@ public class LoadDatabase
                     13L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Skipper gesucht / Bodensee",
                     "2 Personen Brigg Kapitän sucht Skipper",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -206,7 +208,7 @@ public class LoadDatabase
                     14L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Partner verletzt - Spontane Mitspieler/innen gesucht",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -216,7 +218,7 @@ public class LoadDatabase
                     15L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Pensionistenausflug Skigebiet",
                     "Nur begrenzt Plätze",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -226,7 +228,7 @@ public class LoadDatabase
                     16L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Powdern - wer kommt mit?",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -236,7 +238,7 @@ public class LoadDatabase
                     17L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Raserturnier - Mitspieler gesucht",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -246,7 +248,7 @@ public class LoadDatabase
                     18L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Nachwuchs gesucht",
                     "Für Wettkampf und Kunstturnen",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -256,7 +258,7 @@ public class LoadDatabase
                     19L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Tanzpartner für Klassischen Tanz gesucht",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -266,7 +268,7 @@ public class LoadDatabase
                     20L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("3er Gruppe sucht 4. Spieler ",
                     "Platz jede Woche reserviert",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -276,7 +278,7 @@ public class LoadDatabase
                     21L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Beachvolleyball-Duo sucht Gegener",
                     "",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -286,7 +288,7 @@ public class LoadDatabase
                     22L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Selbstverteidigungskurs für Frauen",
                     "Verschiedenste Abwehrtechniken lernen",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -296,7 +298,7 @@ public class LoadDatabase
                     23L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Yoga Summit - der elegante Klassiker",
                     "Erste Einheit gratis und ohne Voranmeldung",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -306,7 +308,7 @@ public class LoadDatabase
                     24L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
             moveRepository.save(new Move("Zumba! Zumba! Dance with us",
                     "Einstieg jederzeit möglich",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
@@ -316,7 +318,7 @@ public class LoadDatabase
                     25L,
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
-                    0L));
+                    null));;
         };
     }
 

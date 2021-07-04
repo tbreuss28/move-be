@@ -16,6 +16,9 @@ public class MoveDTO {
 	private Long skillId;
 	private String skillName;
 	private Long creatorId;
+	private Long mediaId;
+	private String pictureUrl;
+	private String videoUrl;
 	
 	public MoveDTO() {
 		
@@ -32,6 +35,7 @@ public class MoveDTO {
 		this.categoryId =  move.getCategoryId();
 		this.skillId =  move.getSkillId();
 		this.creatorId =  move.getCreatorId();
+		this.mediaId =  move.getMediaId();
 	}
 	
 	
@@ -102,4 +106,43 @@ public class MoveDTO {
 		this.skillName = skillName;
 	}
 
+	public Long getCreatorId()
+	{
+		return creatorId;
+	}
+
+	public void setCreatorId(Long creatorId)
+	{
+		this.creatorId = creatorId;
+	}
+
+	public Long getMediaId()
+	{
+		return mediaId;
+	}
+
+	public void setMediaId(Long mediaId)
+	{
+		this.mediaId = mediaId;
+	}
+
+	public String getPictureUrl()
+	{
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl)
+	{
+		this.pictureUrl = pictureUrl;
+	}
+
+	public String getVideoUrl()
+	{
+		return videoUrl;
+	}
+
+	public void setVideoUrl(String videoUrl)
+	{
+		this.videoUrl = videoUrl;
+	}
 }
