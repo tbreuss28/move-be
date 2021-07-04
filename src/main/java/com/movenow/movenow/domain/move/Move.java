@@ -3,157 +3,199 @@ package com.movenow.movenow.domain.move;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "move")
-public class Move {
-	
-	@Id
+public class Move
+{
+
+    @Id
     @GeneratedValue
-	private Long id;
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String description;
-	
-	private Date startTime;
-	
-	private Date endTime;
-	
-	private Double latitude;
+    private String description;
 
-	private Double longitude;
-	
-	private Long categoryId;
-	
-	private Long skillId;
-	
-	private Long creatorId;
+    private Date startTime;
 
+    private Date endTime;
 
-	public Move() {}
+    private Double latitude;
 
-	public Move(String name, String description, Date startTime, Date endTime, double latitude, double longitude, Long categoryId, Long skillId, Long creatorId) {
-		this.name = name;
-		this.description = description;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.categoryId = categoryId;
-		this.skillId = skillId;
-		this.creatorId = creatorId;
-	}
+    private Double longitude;
 
+    private Long categoryId;
 
-	public Long getId() {
-		return id;
-	}
+    private Long skillId;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private Long creatorId;
+    
+    private Long mediaId;
 
-	public String getName() {
-		return name;
-	}
+    public Move() {}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Move(String name,
+            String description,
+            Date startTime,
+            Date endTime,
+            Double latitude,
+            Double longitude,
+            Long categoryId,
+            Long skillId,
+            Long creatorId,
+            Long mediaId)
+    {
+        this.name = name;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.categoryId = categoryId;
+        this.skillId = skillId;
+        this.creatorId = creatorId;
+        this.mediaId = mediaId;
+    }
 
 
-	public String getDescription() {
-		return description;
-	}
+    public Long getId()
+    {
+        return id;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
 
-	public Date getStartTime() {
-		return startTime;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-	public Date getEndTime() {
-		return endTime;
-	}
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
+    public String getDescription()
+    {
+        return description;
+    }
 
-	public Double getLatitude() {
-		return latitude;
-	}
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
 
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
+    public Date getStartTime()
+    {
+        return startTime;
+    }
 
-	public Double getLongitude() {
-		return longitude;
-	}
+    public void setStartTime(Date startTime)
+    {
+        this.startTime = startTime;
+    }
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-	
+    public Date getEndTime()
+    {
+        return endTime;
+    }
 
-	public Long getCategoryId() {
-		return categoryId;
-	}
+    public void setEndTime(Date endTime)
+    {
+        this.endTime = endTime;
+    }
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
-	}
-	
-	public Long getSkillId() {
-		return skillId;
-	}
+    public Double getLatitude()
+    {
+        return latitude;
+    }
 
-	public void setSkillId(Long skillId) {
-		this.skillId = skillId;
-	}
+    public void setLatitude(Double latitude)
+    {
+        this.latitude = latitude;
+    }
 
-	
-	@Override
-	  public boolean equals(Object o) {
+    public Double getLongitude()
+    {
+        return longitude;
+    }
 
-	    if (this == o)
-	      return true;
-	    if (!(o instanceof Move))
-	      return false;
-	    Move move = (Move) o;
-	    return Objects.equals(this.id, move.id);
-	  }
+    public void setLongitude(Double longitude)
+    {
+        this.longitude = longitude;
+    }
 
-	  @Override
-	  public int hashCode() {
-	    return Objects.hash(this.id);
-	  }
 
-	  @Override
-	  public String toString() {
-	    return "Move{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
-	  }
+    public Long getCategoryId()
+    {
+        return categoryId;
+    }
 
-	public Long getCreatorId() {
-		return creatorId;
-	}
+    public void setCategoryId(Long categoryId)
+    {
+        this.categoryId = categoryId;
+    }
 
-	public void setCreatorId(Long creatorId) {
-		this.creatorId = creatorId;
-	}
+    public Long getSkillId()
+    {
+        return skillId;
+    }
+
+    public void setSkillId(Long skillId)
+    {
+        this.skillId = skillId;
+    }
+
+
+    @Override
+    public boolean equals(Object o)
+    {
+
+        if (this == o) return true;
+        if (!(o instanceof Move)) return false;
+        Move move = (Move) o;
+        return Objects.equals(this.id, move.id);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Move{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
+    }
+
+    public Long getCreatorId()
+    {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId)
+    {
+        this.creatorId = creatorId;
+    }
+
+    public Long getMediaId()
+    {
+        return mediaId;
+    }
+
+    public void setMediaId(Long mediaId)
+    {
+        this.mediaId = mediaId;
+    }
 }
 	
 	

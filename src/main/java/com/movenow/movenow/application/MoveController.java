@@ -70,10 +70,9 @@ public class MoveController {
 	
 	@GetMapping("/{id}")
 	 MoveDTO getMove(@PathVariable Long id) {
-
 		Move move = moveRepository.findById(id).orElseThrow(RuntimeException::new);
 		return toDTO(move);
-	   }
+     }
 
 
 
@@ -92,6 +91,7 @@ public class MoveController {
 		currentMove.setEndTime(move.getEndTime());
 		currentMove.setLatitude(move.getLatitude());
 		currentMove.setLongitude(move.getLongitude());
+		currentMove.setMediaId(move.getMediaId());
 		currentMove = moveRepository.save(move);
 
 		return ResponseEntity.ok(currentMove);
