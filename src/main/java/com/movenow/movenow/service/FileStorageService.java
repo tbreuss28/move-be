@@ -16,7 +16,19 @@ public class FileStorageService {
     public Media store(MultipartFile file) throws IOException {
         Media media = new Media(file.getBytes());
 
-        return mediaRepository.save(media);
+        mediaRepository.save(media);
+        media.setPictureUrl("/api/media/" + media.getId() + "/download");
+        mediaRepository.save(media);
+        
+        return media;
+    }
+
+    public Media store(String videoUrl)
+    {
+        Media media = new Media(videoUrl);
+        mediaRepository.save(media);
+
+        return media;
     }
 
     public Media getMedia(Long id) {        

@@ -8,12 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import com.movenow.movenow.domain.Category;
-import com.movenow.movenow.domain.MoveUser;
-import com.movenow.movenow.domain.MoveUsersRepository;
-import com.movenow.movenow.domain.Skill;
-import com.movenow.movenow.domain.User;
-import com.movenow.movenow.domain.UserRepository;
+import com.movenow.movenow.domain.*;
 import com.movenow.movenow.domain.category.CategoryService;
 import com.movenow.movenow.domain.move.Move;
 import com.movenow.movenow.domain.move.MoveDTO;
@@ -49,13 +44,15 @@ public class MoveController {
    private final MoveRepository moveRepository;
    private final UserRepository userRepository;
    private final MoveUsersRepository moveUsersRepository;
+   private final MediaRepository mediaRepository;
 
 
 
-   public MoveController(MoveRepository moveRepository, UserRepository userRepository, MoveUsersRepository moveUsersRepository) {
+   public MoveController(MoveRepository moveRepository, UserRepository userRepository, MoveUsersRepository moveUsersRepository, MediaRepository mediaRepository) {
 	   this.moveRepository = moveRepository;
 	   this.userRepository = userRepository;
 	   this.moveUsersRepository = moveUsersRepository;
+	   this.mediaRepository = mediaRepository;
    }
 	
 	@GetMapping
@@ -70,12 +67,9 @@ public class MoveController {
 	
 	@GetMapping("/{id}")
 	 MoveDTO getMove(@PathVariable Long id) {
-
 		Move move = moveRepository.findById(id).orElseThrow(RuntimeException::new);
 		return toDTO(move);
-	   }
-
-
+     }
 
 	@PostMapping
 	public ResponseEntity createMove(@RequestBody Move move) throws URISyntaxException {
@@ -92,6 +86,7 @@ public class MoveController {
 		currentMove.setEndTime(move.getEndTime());
 		currentMove.setLatitude(move.getLatitude());
 		currentMove.setLongitude(move.getLongitude());
+		currentMove.setMediaId(move.getMediaId());
 		currentMove = moveRepository.save(move);
 
 		return ResponseEntity.ok(currentMove);
@@ -125,6 +120,13 @@ public class MoveController {
 		if(move.getSkillId() != null) {
 			Skill skill = skillService.getSkill(move.getSkillId());
 			moveDTO.setSkillName(skill.getName());		
+		}
+		
+		if(move.getMediaId() != null)
+		{
+			Media media = mediaRepository.findById(move.getMediaId()).get();
+			moveDTO.setPictureUrl(media.getPictureUrl());
+			moveDTO.setVideoUrl(media.getVideoUrl());
 		}
 		
 		return moveDTO;
