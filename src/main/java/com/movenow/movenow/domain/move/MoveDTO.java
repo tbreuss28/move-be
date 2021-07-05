@@ -19,6 +19,7 @@ public class MoveDTO {
 	private Long mediaId;
 	private String pictureUrl;
 	private String videoUrl;
+	private Double distanceFromUser;
 	
 	public MoveDTO() {
 		
@@ -144,5 +145,15 @@ public class MoveDTO {
 	public void setVideoUrl(String videoUrl)
 	{
 		this.videoUrl = videoUrl;
+	}
+
+	public Double getDistanceFromUser()
+	{
+		return distanceFromUser;
+	}
+
+	public void setDistanceFromUser(Double distanceFromUser)
+	{
+		this.distanceFromUser = distanceFromUser;
 	}
 }
