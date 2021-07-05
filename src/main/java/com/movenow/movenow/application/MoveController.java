@@ -1,34 +1,21 @@
 package com.movenow.movenow.application;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import com.movenow.movenow.domain.*;
 import com.movenow.movenow.domain.category.CategoryService;
 import com.movenow.movenow.domain.move.Move;
 import com.movenow.movenow.domain.move.MoveDTO;
 import com.movenow.movenow.domain.move.MoveRepository;
 import com.movenow.movenow.domain.skill.SkillService;
-
+import com.movenow.movenow.service.MoveService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -41,34 +28,33 @@ public class MoveController {
 	@Autowired
 	SkillService skillService;
 	
-   private final MoveRepository moveRepository;
-   private final UserRepository userRepository;
-   private final MoveUsersRepository moveUsersRepository;
-   private final MediaRepository mediaRepository;
+	@Autowired
+	MoveRepository moveRepository;
 
+	@Autowired
+	UserRepository userRepository;
 
+	@Autowired
+	MoveUsersRepository moveUsersRepository;
 
-   public MoveController(MoveRepository moveRepository, UserRepository userRepository, MoveUsersRepository moveUsersRepository, MediaRepository mediaRepository) {
-	   this.moveRepository = moveRepository;
-	   this.userRepository = userRepository;
-	   this.moveUsersRepository = moveUsersRepository;
-	   this.mediaRepository = mediaRepository;
-   }
-	
+	@Autowired
+	MediaRepository mediaRepository;
+
+	@Autowired
+	MoveService moveService;
+
 	@GetMapping
-	List<MoveDTO> getMoves() {
-		List<MoveDTO> moveDTOs = new ArrayList<>();
+	List<MoveDTO> getMoves() {		
 		List<Move> moves = moveRepository.findAll();
-		for (Move move : moves) {
-			moveDTOs.add(toDTO(move));
-		}
+		List<MoveDTO> moveDTOs = moveService.ConvertListToMoveDTOs(moves);
+		
 		return moveDTOs;
 	}
-	
+
 	@GetMapping("/{id}")
 	 MoveDTO getMove(@PathVariable Long id) {
 		Move move = moveRepository.findById(id).orElseThrow(RuntimeException::new);
-		return toDTO(move);
+		return moveService.ConvertToMoveDTO(move);
      }
 
 	@PostMapping
@@ -107,30 +93,12 @@ public class MoveController {
 		}
 		return moveUsers;
 	}
-	
 
-	private MoveDTO toDTO(Move move) {
-		var moveDTO =  new MoveDTO(move);
-		
-		if(move.getCategoryId() != null) {
-			Category category = categoryService.getCategory(move.getCategoryId());
-			moveDTO.setCategoryName(category.getName());
-		}
-		
-		if(move.getSkillId() != null) {
-			Skill skill = skillService.getSkill(move.getSkillId());
-			moveDTO.setSkillName(skill.getName());		
-		}
-		
-		if(move.getMediaId() != null)
-		{
-			Media media = mediaRepository.findById(move.getMediaId()).get();
-			moveDTO.setPictureUrl(media.getPictureUrl());
-			moveDTO.setVideoUrl(media.getVideoUrl());
-		}
-		
-		return moveDTO;
+	@GetMapping("/movesOnDistanceToPoint")
+	public ArrayList<MoveDTO> getMovesOnDistanceToPoint(@RequestParam Double latitude,
+			@RequestParam Double longitude,
+			@RequestParam Long radius)
+	{
+		return moveService.GetMovesOnLocation(latitude, longitude, radius);
 	}
-	    
-
 }
