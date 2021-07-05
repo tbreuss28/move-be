@@ -40,13 +40,13 @@ public class LoadDatabase
 
             var video = fileStorageService.store("http://vinalandscape.com/wp-content/uploads/2019/06/sample.jpg");            
 
-            moveRepository.save(new Move("Lauftreff Leiblachtal",
-                    "Wöchentlicher Lauftreff für alle aus dem Leiblachtal.",
+            moveRepository.save(new Move("Lauftreff",
+                    "Wöchentlicher Lauftreff für alle",
                     Date.from(Instant.parse("2021-07-11T20:00:00Z")),
                     Date.from(Instant.parse("2021-07-11T21:00:00Z")),
                     47.500897D,
                     9.745009D,
-                    1L,
+                    12L,
                     GetRandomNumber(1L, 3L),
                     1L,
                     null));
@@ -56,7 +56,7 @@ public class LoadDatabase
                     Date.from(Instant.parse("2021-07-10T18:00:00Z")),
                     47.503406D,
                     9.711289D,
-                    GetRandomNumber(1L, 10L),
+                    10L,
                     GetRandomNumber(1L, 3L),
                     1L,
                     video.getId()));
@@ -66,7 +66,7 @@ public class LoadDatabase
                     Date.from(Instant.parse("2021-07-13T13:00:00Z")),
                     47.505227D,
                     9.728391D,
-                    GetRandomNumber(1L, 10L),
+                    21L,
                     GetRandomNumber(1L, 3L),
                     1L,
                     null));
