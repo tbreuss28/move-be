@@ -2,6 +2,8 @@ package com.movenow.movenow.domain.move;
 
 import java.util.Date;
 
+import com.movenow.movenow.domain.User;
+
 public class MoveDTO {
 
 	private Long id;
@@ -20,7 +22,10 @@ public class MoveDTO {
 	private String pictureUrl;
 	private String videoUrl;
 	private Double distanceFromUser;
+	private User creator;
 	
+
+
 	public MoveDTO() {
 		
 	}
@@ -107,53 +112,51 @@ public class MoveDTO {
 		this.skillName = skillName;
 	}
 
-	public Long getCreatorId()
-	{
+	public Long getCreatorId(){
 		return creatorId;
 	}
 
-	public void setCreatorId(Long creatorId)
-	{
+	public void setCreatorId(Long creatorId){
 		this.creatorId = creatorId;
 	}
 
-	public Long getMediaId()
-	{
+	public Long getMediaId(){
 		return mediaId;
 	}
 
-	public void setMediaId(Long mediaId)
-	{
+	public void setMediaId(Long mediaId){
 		this.mediaId = mediaId;
 	}
 
-	public String getPictureUrl()
-	{
+	public String getPictureUrl(){
 		return pictureUrl;
 	}
 
-	public void setPictureUrl(String pictureUrl)
-	{
+	public void setPictureUrl(String pictureUrl){
 		this.pictureUrl = pictureUrl;
 	}
 
-	public String getVideoUrl()
-	{
+	public String getVideoUrl(){
 		return videoUrl;
 	}
 
-	public void setVideoUrl(String videoUrl)
-	{
+	public void setVideoUrl(String videoUrl){
 		this.videoUrl = videoUrl;
 	}
 
-	public Double getDistanceFromUser()
-	{
+	public Double getDistanceFromUser()	{
 		return distanceFromUser;
 	}
 
-	public void setDistanceFromUser(Double distanceFromUser)
-	{
+	public void setDistanceFromUser(Double distanceFromUser){
 		this.distanceFromUser = distanceFromUser;
+	}
+	
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
 	}
 }
