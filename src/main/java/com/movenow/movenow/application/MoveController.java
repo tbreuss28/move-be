@@ -20,14 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/moves")
-public class MoveController {
-	
-	@Autowired
-	CategoryService categoryService;
-	
-	@Autowired
-	SkillService skillService;
-	
+public class MoveController {	
 	@Autowired
 	MoveRepository moveRepository;
 
@@ -36,9 +29,6 @@ public class MoveController {
 
 	@Autowired
 	MoveUsersRepository moveUsersRepository;
-
-	@Autowired
-	MediaRepository mediaRepository;
 
 	@Autowired
 	MoveService moveService;
