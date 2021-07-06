@@ -38,18 +38,18 @@ public class LoadDatabase
             userRepository.save(new User("Jean", "S", "jean"));
             userRepository.save(new User("Karim", "A", "karim"));
 
-            var video = fileStorageService.store("http://vinalandscape.com/wp-content/uploads/2019/06/sample.jpg");            
+            var video = fileStorageService.store("23e9V8YB8wQ");
 
-            moveRepository.save(new Move("Lauftreff",
-                    "Wöchentlicher Lauftreff für alle",
+            moveRepository.save(new Move("Spontan Volleyball Mitspieler gesucht",
+                    "Sind zu 2. und suchen Mitspieler",
                     Date.from(Instant.parse("2021-07-11T20:00:00Z")),
                     Date.from(Instant.parse("2021-07-11T21:00:00Z")),
-                    47.500897D,
-                    9.745009D,
+                    47.504041D,
+                    9.731780D,
                     12L,
                     GetRandomNumber(1L, 3L),
                     1L,
-                    null));
+                    video.getId()));
             moveRepository.save(new Move("HobbyKick Bregenz",
                     "Tschutta in Neu Amerika",
                     Date.from(Instant.parse("2021-07-10T16:00:00Z")),
@@ -59,7 +59,7 @@ public class LoadDatabase
                     10L,
                     GetRandomNumber(1L, 3L),
                     1L,
-                    video.getId()));
+                    null));
             moveRepository.save(new Move("Tennis am Mittag",
                     "Bewegung in der Mittagspause",
                     Date.from(Instant.parse("2021-07-13T12:00:00Z")),
@@ -320,17 +320,17 @@ public class LoadDatabase
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
                     null));
-                    
+
             var moves = moveRepository.findAll();
             var users = userRepository.findAll();
 
             for (var move : moves) {
-                for (int i = 0; i < GetRandomNumber(1L, Long.valueOf(users.size())); i++){
+                for (int i = 0; i < GetRandomNumber(1L, Long.valueOf(users.size())); i++) {
                     var mover = new MoveUser();
-                    
+
                     mover.setMoveId(move.getId());
                     mover.setUserId(users.get(i).getId());
-                    
+
                     moveUsersRepository.save(mover);
                 }
             }
