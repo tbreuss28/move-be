@@ -20,15 +20,6 @@ public class MediaController
     @Autowired
     private FileStorageService storageService;
 
-    public MediaController()
-    {
-    }
-
-    public MediaController(FileStorageService storageService)
-    {
-        this.storageService = storageService;
-    }
-
     @GetMapping("/{id}")
     public Media getMedia(@PathVariable Long id)
     {
@@ -45,6 +36,14 @@ public class MediaController
     public ResponseEntity createMedia(@RequestParam("file") MultipartFile file) throws URISyntaxException, IOException
     {
         var savedMedia = storageService.store(file);
+
+        return ResponseEntity.created(new URI("/media/" + savedMedia.getId())).body(savedMedia);
+    }
+
+    @PostMapping("/createLink")
+    public ResponseEntity createMedia(@RequestParam("Url") String url) throws URISyntaxException
+    {
+        var savedMedia = storageService.store(url);
 
         return ResponseEntity.created(new URI("/media/" + savedMedia.getId())).body(savedMedia);
     }
