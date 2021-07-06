@@ -40,7 +40,7 @@ public class LoadDatabase
 
             var video = fileStorageService.store("23e9V8YB8wQ");
 
-            moveRepository.save(new Move("Spontan Volleyball Mitspieler gesucht",
+            moveRepository.save(new Move("Spontane Volleyball Mitspieler gesucht",
                     "Sind zu 2. und suchen Mitspieler",
                     Date.from(Instant.parse("2021-07-11T20:00:00Z")),
                     Date.from(Instant.parse("2021-07-11T21:00:00Z")),
@@ -200,7 +200,7 @@ public class LoadDatabase
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
                     null));
-            moveRepository.save(new Move("Skipper gesucht / Bodensee",
+            moveRepository.save(new Move("Skipper gesucht - Bodensee",
                     "2 Personen Brigg Kapitän sucht Skipper",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
                     Date.from(Instant.parse("2021-07-12T17:00:00Z")),
@@ -250,7 +250,7 @@ public class LoadDatabase
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
                     null));
-            moveRepository.save(new Move("Nachwuchs gesucht",
+            moveRepository.save(new Move("Nachwuchs Turner gesucht",
                     "Für Wettkampf und Kunstturnen",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
                     Date.from(Instant.parse("2021-07-12T17:00:00Z")),
@@ -290,7 +290,7 @@ public class LoadDatabase
                     GetRandomNumber(1L, 3L),
                     GetRandomNumber(1L, 6L),
                     null));
-            moveRepository.save(new Move("Selbstverteidigungskurs für Frauen",
+            moveRepository.save(new Move("Selbstverteidigungskurs für Männer",
                     "Verschiedenste Abwehrtechniken lernen",
                     Date.from(Instant.parse("2021-07-12T16:00:00Z")),
                     Date.from(Instant.parse("2021-07-12T17:00:00Z")),
