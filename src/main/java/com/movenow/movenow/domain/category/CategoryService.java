@@ -130,7 +130,6 @@ public class CategoryService {
     			return category;
     		}
 		}
-    	throw new NullPointerException();
-    	 
+		return null;
     }
 }

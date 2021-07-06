@@ -9,5 +9,4 @@ public class MoveNowApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MoveNowApplication.class, args);
 	}
-
 }

@@ -34,12 +34,11 @@ public class SkillService {
     }
 
     public Skill getSkill(Long id) {
-        for (Skill skill:
-                skills) {
+        for (Skill skill:skills) {
             if (skill.getId() == id) {
             	return skill;
             }
         }
-        throw new NullPointerException();
+        return null;
     }
 }

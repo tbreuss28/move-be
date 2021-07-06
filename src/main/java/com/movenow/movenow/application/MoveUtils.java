@@ -1,10 +1,7 @@
 package com.movenow.movenow.application;
 
-import com.movenow.movenow.domain.Category;
 import com.movenow.movenow.domain.Media;
 import com.movenow.movenow.domain.MediaRepository;
-import com.movenow.movenow.domain.Skill;
-import com.movenow.movenow.domain.User;
 import com.movenow.movenow.domain.UserRepository;
 import com.movenow.movenow.domain.category.CategoryService;
 import com.movenow.movenow.domain.move.Move;
@@ -30,6 +27,8 @@ public class MoveUtils
 
     public MoveDTO toDTO(Move move) {
         var moveDTO =  new MoveDTO(move);
+        var category = categoryService.getCategory(move.getCategoryId());
+        var skill = skillService.getSkill(move.getSkillId());
         
         //Big NoNo! (Use JPA)
         if(move.getCreatorId() != null) {
@@ -37,13 +36,12 @@ public class MoveUtils
         	moveDTO.setCreator(user.get());
         }
 
-        if(move.getCategoryId() != null) {
-            Category category = categoryService.getCategory(move.getCategoryId());
-            moveDTO.setCategoryName(category.getName());
+        
+        if(category != null) {
+          	moveDTO.setCategoryName(category.getName());
         }
-
-        if(move.getSkillId() != null) {
-            Skill skill = skillService.getSkill(move.getSkillId());
+        
+        if(skill != null) {
             moveDTO.setSkillName(skill.getName());
         }
 
