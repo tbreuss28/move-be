@@ -4,6 +4,8 @@ import com.movenow.movenow.domain.Category;
 import com.movenow.movenow.domain.Media;
 import com.movenow.movenow.domain.MediaRepository;
 import com.movenow.movenow.domain.Skill;
+import com.movenow.movenow.domain.User;
+import com.movenow.movenow.domain.UserRepository;
 import com.movenow.movenow.domain.category.CategoryService;
 import com.movenow.movenow.domain.move.Move;
 import com.movenow.movenow.domain.move.MoveDTO;
@@ -22,9 +24,18 @@ public class MoveUtils
 
     @Autowired
     MediaRepository mediaRepository;
+    
+    @Autowired
+    UserRepository userRepository;
 
     public MoveDTO toDTO(Move move) {
         var moveDTO =  new MoveDTO(move);
+        
+        //Big NoNo! (Use JPA)
+        if(move.getCreatorId() != null) {
+        	var user = userRepository.findById(move.getCreatorId());
+        	moveDTO.setCreator(user.get());
+        }
 
         if(move.getCategoryId() != null) {
             Category category = categoryService.getCategory(move.getCategoryId());
